@@ -67,8 +67,8 @@ func _process_shield(dmg:int):
 	if(_shield > 0):
 		_shield -= dmg
 		if(_shield < 0): _shield = 0
-		emit_signal("on_shield_damage", dmg)
-	
+		
+	emit_signal("on_shield_damage", dmg)
 	return dmg - _shield
 
 func _reset_shield():

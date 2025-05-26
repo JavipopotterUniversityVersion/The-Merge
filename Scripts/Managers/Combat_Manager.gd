@@ -80,3 +80,5 @@ func _end_turn():
 
 func _on_enemy_death():
 	print("Enemies left: " +  str(_enemies_data.size()))
+	if _enemies_data.size() <= 0:
+		ScenesManager.add_scene("WinScene")

@@ -18,7 +18,11 @@ func _ready():
 	_health_handler.on_heal.connect(func(dmg): value = _health_handler._health)
 	var style = get_theme_stylebox("fill") as StyleBoxFlat
 	
-	_health_handler.on_add_shield.connect(func (amount): style.bg_color = CORNFLOWER_BLUE)
+	_health_handler.on_add_shield.connect(
+		func (amount): 
+			style.bg_color = CORNFLOWER_BLUE)
+			
 	_health_handler.on_shield_damage.connect(
-		func (amount): if(_health_handler._shield <= 0): 
-			style.bg_color = RED)
+		func (amount): 
+			if(_health_handler._shield <= 0): 
+				style.bg_color = RED)

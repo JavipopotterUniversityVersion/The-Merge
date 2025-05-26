@@ -70,6 +70,7 @@ text = "3/3"
 label_settings = SubResource("LabelSettings_e4au2")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
 offset_left = 317.0
@@ -77,6 +78,7 @@ offset_top = 237.0
 offset_right = 495.0
 offset_bottom = 270.0
 text = "End Turn"
+metadata/_edit_use_anchors_ = true
 
 [node name="ShieldSpawn" parent="." instance=ExtResource("4_sj784")]
 position = Vector2(-22, 53)
