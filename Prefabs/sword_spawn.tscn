@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dl7y2w34b2vs8"]
+
+[ext_resource type="Texture2D" uid="uid://d283v7vgrtwtw" path="res://Sprites/Sword_Spawn.png" id="1_g45k8"]
+[ext_resource type="Script" path="res://Scripts/Item_Spawner.gd" id="2_p6uqm"]
+[ext_resource type="Script" path="res://Scripts/Dragable_Item.gd" id="3_a6hj6"]
+[ext_resource type="Script" path="res://Scripts/Item_Data.gd" id="3_w4h16"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k4fct"]
+radius = 22.0907
+
+[node name="SwordSpawn" type="Sprite2D"]
+position = Vector2(120, 60)
+texture = ExtResource("1_g45k8")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+scale = Vector2(4.8, 4.72)
+pivot_offset = Vector2(3.9229, 3.90211)
+
+[node name="ItemData" type="Node2D" parent="."]
+script = ExtResource("3_w4h16")
+
+[node name="ItemSpawner" type="Node2D" parent="."]
+script = ExtResource("2_p6uqm")
+_item_type = "Sword"
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_k4fct")
+
+[node name="Dragger" type="Node2D" parent="."]
+visible = false
+script = ExtResource("3_a6hj6")

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bptobpft4dw4i"]
+
+[ext_resource type="Texture2D" uid="uid://bbmq6hl083f7y" path="res://Sprites/Player.png" id="1_fj83k"]
+[ext_resource type="Script" path="res://Scripts/FeedBack/Life_Bar.gd" id="2_nsqus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yiess"]
+bg_color = Color(0.2, 0.176471, 0.470588, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdgrc"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="Player" type="Sprite2D"]
+position = Vector2(-460, -197)
+texture = ExtResource("1_fj83k")
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -26.0
+theme_override_styles/background = SubResource("StyleBoxFlat_yiess")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gdgrc")
+value = 100.0
+show_percentage = false
+script = ExtResource("2_nsqus")

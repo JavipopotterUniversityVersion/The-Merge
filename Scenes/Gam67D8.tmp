@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://bf7fmwpq2hr0p"]
+
+[ext_resource type="Texture2D" uid="uid://bw77ryr4fneqd" path="res://Sprites/Foe.png" id="1_qg3jt"]
+[ext_resource type="PackedScene" uid="uid://bptobpft4dw4i" path="res://Prefabs/player.tscn" id="3_wdfnm"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="3_wuneh"]
+[ext_resource type="PackedScene" uid="uid://bgrb5ujpodo7s" path="res://Prefabs/sword_spawn.tscn" id="4_sj784"]
+[ext_resource type="Script" path="res://Scripts/GridMaster.gd" id="5_p77j4"]
+
+[sub_resource type="Gradient" id="Gradient_x7pkr"]
+offsets = PackedFloat32Array(0, 0.993548)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nljtu"]
+gradient = SubResource("Gradient_x7pkr")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_5ge8u"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_euk3f"]
+gradient = SubResource("Gradient_5ge8u")
+
+[node name="GameScene" type="Node2D"]
+position = Vector2(-22, -23)
+
+[node name="Grid_Master" type="Node" parent="."]
+script = ExtResource("5_p77j4")
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(24.1271, -15.1985)
+texture = SubResource("GradientTexture2D_nljtu")
+
+[node name="GamePanel" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, 52)
+scale = Vector2(16.96, 5.16)
+texture = SubResource("GradientTexture2D_euk3f")
+
+[node name="Foe" type="Sprite2D" parent="."]
+position = Vector2(394, -166)
+texture = ExtResource("1_qg3jt")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("_playerNode")]
+script = ExtResource("3_wuneh")
+_playerNode = NodePath("Player")
+
+[node name="Player" parent="GameManager" instance=ExtResource("3_wdfnm")]
+
+[node name="SwordSpawn" parent="." node_paths=PackedStringArray("_grid_master") instance=ExtResource("4_sj784")]
+_grid_master = NodePath("../Grid_Master")
+_min_distance = 2
+_max_distance = 2
+
+[editable path="GameManager/Player"]
+[editable path="SwordSpawn"]

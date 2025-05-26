@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://blr2twr71id37"]
+
+[ext_resource type="Script" path="res://Scripts/Load_Scene_Button.gd" id="1_yhbx0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3t0ku"]
+font_size = 70
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MainMenuLabel" type="Label" parent="."]
+offset_left = -550.0
+offset_top = -291.0
+offset_right = 545.0
+offset_bottom = -149.0
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_3t0ku")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = -232.0
+offset_top = -92.0
+offset_right = 212.0
+offset_bottom = 8.0
+text = "Play"
+script = ExtResource("1_yhbx0")
+scene = "GameScene"

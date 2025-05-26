@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://ch808tlr5docu"]
+
+[ext_resource type="Texture2D" uid="uid://bw77ryr4fneqd" path="res://Sprites/Foe.png" id="1_c8ec4"]
+[ext_resource type="Script" path="res://Scripts/Entity/Health_Handler.gd" id="2_3yvt3"]
+[ext_resource type="Script" path="res://Scripts/FeedBack/Life_Bar.gd" id="3_fihy2"]
+[ext_resource type="Script" path="res://Scripts/Entity/Entity_Brain.gd" id="4_3j0kj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0ymw"]
+bg_color = Color(0.2, 0.176471, 0.470588, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7v4y"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="Foe" type="Sprite2D"]
+position = Vector2(418, -248.5)
+texture = ExtResource("1_c8ec4")
+script = ExtResource("2_3yvt3")
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -26.0
+theme_override_styles/background = SubResource("StyleBoxFlat_c0ymw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_g7v4y")
+value = 100.0
+show_percentage = false
+script = ExtResource("3_fihy2")
+
+[node name="Entity_Brain" type="Node" parent="."]
+script = ExtResource("4_3j0kj")

@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=3 uid="uid://bf7fmwpq2hr0p"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/Grid_Master.gd" id="1_0e8c0"]
+[ext_resource type="Script" path="res://Scripts/Managers/Combat_Manager.gd" id="2_8miil"]
+[ext_resource type="PackedScene" uid="uid://bptobpft4dw4i" path="res://Prefabs/player.tscn" id="3_wdfnm"]
+[ext_resource type="Script" path="res://Scripts/Entity/Health_Handler.gd" id="4_bnap6"]
+[ext_resource type="PackedScene" uid="uid://dl7y2w34b2vs8" path="res://Prefabs/sword_spawn.tscn" id="4_sj784"]
+[ext_resource type="PackedScene" uid="uid://ch808tlr5docu" path="res://Prefabs/foe.tscn" id="5_x0mlw"]
+[ext_resource type="Texture2D" uid="uid://dajpe4us5k58m" path="res://Sprites/Shield_Spawn.png" id="7_c22n8"]
+
+[sub_resource type="Gradient" id="Gradient_x7pkr"]
+offsets = PackedFloat32Array(0, 0.993548)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nljtu"]
+gradient = SubResource("Gradient_x7pkr")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_5ge8u"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_euk3f"]
+gradient = SubResource("Gradient_5ge8u")
+
+[sub_resource type="LabelSettings" id="LabelSettings_e4au2"]
+font_size = 41
+shadow_size = 9
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="GameScene" type="Node2D"]
+position = Vector2(-22, -23)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Grid_Master" type="Node" parent="."]
+script = ExtResource("1_0e8c0")
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(24.1271, -15.1985)
+texture = SubResource("GradientTexture2D_nljtu")
+
+[node name="GamePanel" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, 52)
+scale = Vector2(16.96, 5.16)
+texture = SubResource("GradientTexture2D_euk3f")
+
+[node name="Combat_Manager" type="Node" parent="."]
+script = ExtResource("2_8miil")
+
+[node name="Entities" type="Node" parent="Combat_Manager"]
+
+[node name="Player" parent="Combat_Manager/Entities" instance=ExtResource("3_wdfnm")]
+position = Vector2(-414, -256.5)
+script = ExtResource("4_bnap6")
+is_allie = true
+
+[node name="Foe" parent="Combat_Manager/Entities" instance=ExtResource("5_x0mlw")]
+
+[node name="Actions_Label" type="Label" parent="Combat_Manager"]
+offset_left = 257.0
+offset_top = 156.0
+offset_right = 546.0
+offset_bottom = 252.0
+text = "3/3"
+label_settings = SubResource("LabelSettings_e4au2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
+offset_left = 317.0
+offset_top = 237.0
+offset_right = 495.0
+offset_bottom = 270.0
+text = "End Turn"
+
+[node name="ShieldSpawn" parent="." instance=ExtResource("4_sj784")]
+position = Vector2(-22, 53)
+texture = ExtResource("7_c22n8")
+
+[node name="ItemSpawner" parent="ShieldSpawn" index="2"]
+_item_type = "Shield"
+
+[node name="SwordSpawn" parent="." instance=ExtResource("4_sj784")]
+
+[connection signal="button_up" from="Combat_Manager/End_Turn_Button" to="Combat_Manager" method="_end_turn"]
+
+[editable path="Combat_Manager/Entities/Player"]
+[editable path="Combat_Manager/Entities/Foe"]
+[editable path="ShieldSpawn"]
+[editable path="SwordSpawn"]
