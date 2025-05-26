@@ -52,10 +52,10 @@ func get_damage(dmg:int):
 		die()
 	else:
 		var animation = "get_dmg_from_right" if is_allie else "get_dmg_from_left"
-		Tweens_Data.tweens[animation].call(self)
+		TweensData.get_tween(animation).call(self)
 
 func die():
-	Tweens_Data.tweens["die"].call(self)
+	TweensData.get_tween("die").call(self)
 	await get_tree().create_timer(2).timeout
 	if is_allie: ScenesManager.load_scene("MainMenu")
 	emit_signal("on_death")

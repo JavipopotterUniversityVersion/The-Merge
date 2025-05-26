@@ -9,11 +9,15 @@ var _actions_left:int = 3
 var _max_actions:int = 3
 
 func _ready():
+	TweensData.on_animation_start.connect(func(): get_node("End_Turn_Button").disabled = true)
+	TweensData.on_animation_end.connect(func(): get_node("End_Turn_Button").disabled = false)
+	
 	_playerData = get_node("Entities/Player")
 	_actions_label = get_node("Actions_Label")
 	
 	for child in get_node("Entities").get_children():
 		if(child.is_allie == false): 
+			Data_Base.set_enemy_parameters(child.get_node("Entity_Brain"), child)
 			_enemies_data.push_back(child)
 			child.on_death.connect(func():_enemies_data.erase(child))
 			child.on_death.connect(_on_enemy_death)

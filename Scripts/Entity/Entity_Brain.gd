@@ -7,7 +7,6 @@ var _current_action = 0
 
 func _ready():
 	_target = get_parent().get_node("../Player")
-	Data_Base.set_enemy_parameters(self, get_parent())
 
 func act():
 	await actions[_current_action].call(get_parent(), _target)

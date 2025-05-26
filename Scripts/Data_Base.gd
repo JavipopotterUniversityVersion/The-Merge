@@ -8,7 +8,7 @@ static func set_item_parameters(item:Item_Data):
 			item.action = func(entity):
 				item.get_parent().queue_free()
 				var level = item._level
-				Tweens_Data.tweens["attack_right"].call({
+				TweensData.get_tween("attack_right").call({
 					"object" : item._player, 
 					"duration" : 0.2,
 					"call_back" : func(): entity.get_damage(pow(2.5, level+1)),
@@ -32,7 +32,7 @@ static func set_enemy_parameters(brain:Entity_Brain, health:Health_Handler):
 static var abilities = {
 	"attack" : 
 		func(this:Health_Handler, other:Health_Handler):
-			Tweens_Data.tweens["attack_left"].call({
+			TweensData.get_tween("attack_left").call({
 				"object" : this, 
 				"duration" : 0.2,
 				"call_back" : func(): other.get_damage(1)
