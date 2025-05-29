@@ -20,14 +20,22 @@ static func set_item_parameters(item:Item_Data):
 				item.get_parent().queue_free()
 				entity.add_shield(pow(2.25, item._level+1))
 
-static func set_enemy_parameters(brain:Entity_Brain, health:Health_Handler):
-	var enemy = enemies[enemies.keys()[randi_range(0, enemies.size()-1)]]
+static func set_enemy_parameters(enemies_instances):
+	var set = enemies_sets[randi_range(0, enemies_sets.size()-1)]
 	
-	health.set_max_health(enemy["health"])
-	brain.actions = []
-	
-	for action in enemy["actions"]:
-		brain.actions.push_back(abilities[action])
+	for i in range(0, set.size()):
+		var enemy_data = enemies[set[i]]
+		var enemy_instance:Health_Handler = enemies_instances[i]
+		var brain:Entity_Brain = enemy_instance.get_node("Entity_Brain");
+		
+		enemy_instance.texture = load("res://Sprites/Enemies/" + enemy_data["sprite"] + ".png")
+		enemy_instance.set_max_health(enemy_data["health"])
+		brain.actions = []
+		
+		for action in enemy_data["actions"]:
+			brain.actions.push_back(abilities[action])
+			
+		enemy_instance.show()
 
 static var abilities = {
 	"attack" : 
@@ -48,6 +56,19 @@ static var abilities = {
 static var enemies = {
 	"John" : {
 		"health": 20,
-		"actions": ["attack", "shield"]
+		"actions": ["attack", "shield"],
+		"sprite" : "Foe"
+	},
+	
+	"Mario" : {
+		"health": 15,
+		"actions": ["attack", "attack", "shield"],
+		"sprite" : "Demon"
 	}
 }
+
+static var enemies_sets = [
+	["John"],
+	["John", "Mario"],
+	["Mario", "John", "John"],
+]

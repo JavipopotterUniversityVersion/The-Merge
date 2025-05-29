@@ -1,5 +1,5 @@
 class_name Grid_Master
-extends Node
+extends Node2D
 
 @export var _rows:int = 5
 @export var _columns:int = 11

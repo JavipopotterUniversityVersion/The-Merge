@@ -17,10 +17,20 @@ func _ready():
 	
 	for child in get_node("Entities").get_children():
 		if(child.is_allie == false): 
-			Data_Base.set_enemy_parameters(child.get_node("Entity_Brain"), child)
 			_enemies_data.push_back(child)
+			child.hide();
 			child.on_death.connect(func():_enemies_data.erase(child))
 			child.on_death.connect(_on_enemy_death)
+	
+	Data_Base.set_enemy_parameters(_enemies_data)
+	
+	var hidden_enemies = []
+	for enemy in _enemies_data:
+		if(enemy.is_visible() == false):
+			hidden_enemies.push_back(enemy)
+	
+	for enemy in hidden_enemies:
+		_enemies_data.erase(enemy)
 
 func _round_start():
 	_actions_left = _max_actions
@@ -36,25 +46,25 @@ func can_act(): return _actions_left > 0
 
 func is_over_entity(object):
 	if(object.get_node("ItemData").allie_is_target):
-		if(_playerData.position.distance_to(object.position) < Grid_Master.GRID_SIZE):
+		if(_playerData.global_position.distance_to(object.global_position) < Grid_Master.GRID_SIZE):
 			_playerData.modulate = Color(1,1,1,1)
 			return _playerData
 	else:	
 		for enemy in _enemies_data:
-			if(enemy.position.distance_to(object.position) < Grid_Master.GRID_SIZE):
+			if(enemy.global_position.distance_to(object.global_position) < Grid_Master.GRID_SIZE):
 				enemy.modulate = Color(1,1,1,1)
 				return enemy
 	return null
 
 func hovering(object):
 	if(object.get_node("ItemData").allie_is_target):
-		if(_playerData.position.distance_to(object.position) < Grid_Master.GRID_SIZE):
+		if(_playerData.global_position.distance_to(object.global_position) < Grid_Master.GRID_SIZE):
 			_playerData.modulate = Color(0,1,0,1)
 		else: _playerData.modulate = Color(1,1,1,1)
 			
 	else:
 		for enemy in _enemies_data:
-			if(enemy.position.distance_to(object.position) < Grid_Master.GRID_SIZE):
+			if(enemy.global_position.distance_to(object.global_position) < Grid_Master.GRID_SIZE):
 				enemy.modulate = Color(1,1,0,1)
 			else: enemy.modulate = Color(1,1,1,1)
 

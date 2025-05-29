@@ -25,7 +25,7 @@ func _ready():
 func _physics_process(delta):
 	if is_dragging == true:
 		var tween = get_tree().create_tween()
-		tween.tween_property(get_parent(), "position", get_global_mouse_position()-mouse_offset, delay * delta)
+		tween.tween_property(get_parent(), "global_position", get_global_mouse_position()-mouse_offset, delay * delta)
 		_combat_manager.hovering(get_parent())
 
 func _input(event):

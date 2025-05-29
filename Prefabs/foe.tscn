@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ch808tlr5docu"]
 
-[ext_resource type="Texture2D" uid="uid://bw77ryr4fneqd" path="res://Sprites/Foe.png" id="1_c8ec4"]
+[ext_resource type="Texture2D" uid="uid://bw77ryr4fneqd" path="res://Sprites/Enemies/Foe.png" id="1_c8ec4"]
 [ext_resource type="Script" path="res://Scripts/Entity/Health_Handler.gd" id="2_3yvt3"]
 [ext_resource type="Script" path="res://Scripts/FeedBack/Life_Bar.gd" id="3_fihy2"]
 [ext_resource type="Script" path="res://Scripts/Entity/Entity_Brain.gd" id="4_3j0kj"]

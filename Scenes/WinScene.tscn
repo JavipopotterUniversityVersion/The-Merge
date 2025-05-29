@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://chpi7xeh8i83j"]
+[gd_scene load_steps=3 format=3 uid="uid://chpi7xeh8i83j"]
+
+[ext_resource type="Script" path="res://Scripts/Load_Scene_Button.gd" id="1_uu177"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7nkc1"]
 font_size = 46
@@ -36,3 +38,18 @@ text = "You Win"
 label_settings = SubResource("LabelSettings_7nkc1")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -357.0
+offset_top = -47.0
+offset_right = -11.0
+offset_bottom = -12.0
+text = "Continue"
+script = ExtResource("1_uu177")
+scene = "OverWorldScene"
