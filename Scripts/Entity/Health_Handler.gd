@@ -7,10 +7,12 @@ var _health:int = 10
 
 var _shield:int = 0
 
-var _altered_states = []
+var _altered_states = {}
 
 signal on_heal
 signal on_add_shield
+
+signal on_attack
 
 signal on_get_damage
 signal on_shield_damage
@@ -78,9 +80,28 @@ func _reset_shield():
 	emit_signal("on_shield_damage", 0)
 
 func turn_start():
-	for state in _altered_states:
-		await state["start"].call(self)
+	var states_to_remove = []
+	
+	for state in _altered_states.values():
+		await state["start"].call()
+		
+		if(state.power <= 0):
+			state["exit"].call()
+			states_to_remove.push_back(state)
+	
+	for state in states_to_remove:
+		_altered_states.erase(state)
 
 func turn_end():
-	for state in _altered_states:
-		await state["end"].call(self)
+	pass
+#	for state in _altered_states:
+#		await state["end"].call()
+
+func add_altered_state(state, power):
+	if(_altered_states.has(state)): 
+		_altered_states[state].power + power;
+	else:
+		var a_altered_state = Altered_States.get_altered_state(state, self)
+		a_altered_state.power = power
+		_altered_states[state] = a_altered_state
+		a_altered_state["set"].call()

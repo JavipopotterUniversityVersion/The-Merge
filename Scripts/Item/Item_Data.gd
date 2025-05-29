@@ -6,6 +6,15 @@ var _level = 0
 var action:Callable
 var allie_is_target:bool = false
 var _player:Sprite2D
+var _triggers:int = 1
+
+var free = false
+
+func trigger(target):
+	for trigger in range(0, _triggers):
+		await action.call(target)
+	
+	if free: get_parent().queue_free()
 
 func init(name, level):
 	_type = name

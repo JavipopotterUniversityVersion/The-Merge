@@ -1,24 +1,40 @@
 class_name Data_Base
 extends Node
 
+static var items = [
+	"Sword",
+	"Shield",
+	"Poison"
+]
+
 static func set_item_parameters(item:Item_Data):
 	match item._type:
 		'Sword':
 			item.allie_is_target = false
 			item.action = func(entity):
-				item.get_parent().queue_free()
+				item.free = true
 				var level = item._level
-				TweensData.get_tween("attack_right").call({
-					"object" : item._player, 
+				var player = item._player
+				await TweensData.get_tween("attack_right").call({
+					"object" : player, 
 					"duration" : 0.2,
-					"call_back" : func(): entity.get_damage(pow(2.5, level+1)),
+					"call_back" : func(): 
+						entity.get_damage(pow(2.5, level+1))
+						player.emit_signal("on_attack"),
 				})
 			
 		'Shield':
 			item.allie_is_target = true
 			item.action = func(entity):
-				item.get_parent().queue_free()
+				item.free = true
 				entity.add_shield(pow(2.25, item._level+1))
+		
+		'Poison':
+			item.allie_is_target = false
+			item.action = func(entity):
+				item.free = true
+				var level = item._level
+				entity.add_altered_state("Poison", pow(2.25, item._level))
 
 static func set_enemy_parameters(enemies_instances):
 	var set = enemies_sets[randi_range(0, enemies_sets.size()-1)]
@@ -46,8 +62,9 @@ static var abilities = {
 			TweensData.get_tween("attack_left").call({
 				"object" : this, 
 				"duration" : 0.2,
-				"call_back" : func(): other.get_damage(this.get_meta("damage"))
-				})
+				"call_back" : func(): 
+					other.get_damage(this.get_meta("damage"))
+					this.emit_signal("on_attack")})
 			await this.get_tree().create_timer(0.2).timeout,
 			
 	"shield" : 
@@ -75,7 +92,5 @@ static var enemies = {
 }
 
 static var enemies_sets = [
-	["John"],
-	["John", "Mario"],
-	["Mario", "John", "John"],
+	["John"]
 ]

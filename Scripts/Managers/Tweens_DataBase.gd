@@ -22,7 +22,7 @@ var tweens = {
 			tween.tween_property(context.object, 'position', init_pos + Vector2(50,0), context.duration*2/4)
 			tween.tween_property(context.object, 'position', init_pos - Vector2(100,0) , context.duration/4)
 			tween.tween_property(context.object, 'position', init_pos, context.duration/4)
-			await context.object.get_tree().create_timer(context.duration/1.5).timeout
+			await context.object.get_tree().create_timer(context.duration).timeout
 			context.call_back.call()
 			emit_signal("on_animation_end"),
 			
@@ -33,7 +33,7 @@ var tweens = {
 			tween.tween_property(context.object, 'position', init_pos - Vector2(50,0), context.duration*2/4)
 			tween.tween_property(context.object, 'position', init_pos + Vector2(100,0) , context.duration/4)
 			tween.tween_property(context.object, 'position', init_pos, context.duration/4)
-			await context.object.get_tree().create_timer(context.duration/1.5).timeout
+			await context.object.get_tree().create_timer(context.duration).timeout
 			context.call_back.call()
 			emit_signal("on_animation_end"),
 	

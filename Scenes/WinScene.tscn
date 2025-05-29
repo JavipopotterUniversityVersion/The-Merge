@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://chpi7xeh8i83j"]
+[gd_scene load_steps=5 format=3 uid="uid://chpi7xeh8i83j"]
 
 [ext_resource type="Script" path="res://Scripts/Load_Scene_Button.gd" id="1_uu177"]
+[ext_resource type="Script" path="res://Scripts/Item_Reward_Button.gd" id="2_d45wh"]
+[ext_resource type="Texture2D" uid="uid://bulss842b4k8a" path="res://Sprites/Poison/Poison_0.png" id="2_lalxd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7nkc1"]
 font_size = 46
@@ -52,4 +54,29 @@ offset_right = -11.0
 offset_bottom = -12.0
 text = "Continue"
 script = ExtResource("1_uu177")
-scene = "OverWorldScene"
+scene = "MainMenu"
+
+[node name="Rewards" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 113.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Panel/Rewards"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_right = 1.005
+anchor_bottom = 0.139
+offset_left = -8.416
+offset_right = -0.26001
+offset_bottom = 0.0679932
+grow_horizontal = 2
+text = "fdgdf"
+icon = ExtResource("2_lalxd")
+icon_alignment = 2
+script = ExtResource("2_d45wh")

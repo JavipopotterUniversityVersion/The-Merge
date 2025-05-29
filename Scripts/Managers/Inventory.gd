@@ -1,7 +1,7 @@
 class_name Inventory
 extends Node
 
-static var items = ["Sword", "Shield"]
+static var items = ["Sword"]
 
 static func remove_item(item_name):
 	items.erase(item_name)

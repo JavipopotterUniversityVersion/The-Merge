@@ -43,6 +43,6 @@ func _input(event):
 				var target = _combat_manager.is_over_entity(get_parent())
 				
 				if(target != null):
-					_item_data.action.call(target)
+					_item_data.trigger(target)
 				else: if(_grid_master.add_object(get_parent()) == false):
 					_grid_master.add_object_to_pos(get_parent(), _last_pos)
