@@ -28,6 +28,9 @@ static func set_enemy_parameters(enemies_instances):
 		var enemy_instance:Health_Handler = enemies_instances[i]
 		var brain:Entity_Brain = enemy_instance.get_node("Entity_Brain");
 		
+		enemy_instance.set_meta("damage", enemy_data["damage"])
+		enemy_instance.set_meta("shield", enemy_data["shield"])
+		
 		enemy_instance.texture = load("res://Sprites/Enemies/" + enemy_data["sprite"] + ".png")
 		enemy_instance.set_max_health(enemy_data["health"])
 		brain.actions = []
@@ -43,25 +46,29 @@ static var abilities = {
 			TweensData.get_tween("attack_left").call({
 				"object" : this, 
 				"duration" : 0.2,
-				"call_back" : func(): other.get_damage(1)
+				"call_back" : func(): other.get_damage(this.get_meta("damage"))
 				})
 			await this.get_tree().create_timer(0.2).timeout,
 			
 	"shield" : 
 		func(this:Health_Handler, other:Health_Handler):
-			this.add_shield(5)
+			this.add_shield(this.get_meta("shield"))
 			await this.get_tree().create_timer(0.2).timeout,
 }
 
 static var enemies = {
 	"John" : {
 		"health": 20,
+		"damage": 1,
+		"shield": 4,
 		"actions": ["attack", "shield"],
 		"sprite" : "Foe"
 	},
 	
 	"Mario" : {
-		"health": 15,
+		"health": 10,
+		"damage": 2,
+		"shield": 8,
 		"actions": ["attack", "attack", "shield"],
 		"sprite" : "Demon"
 	}

@@ -7,6 +7,8 @@ var _health:int = 10
 
 var _shield:int = 0
 
+var _altered_states = []
+
 signal on_heal
 signal on_add_shield
 
@@ -74,3 +76,11 @@ func _process_shield(dmg:int):
 func _reset_shield():
 	_shield = 0
 	emit_signal("on_shield_damage", 0)
+
+func turn_start():
+	for state in _altered_states:
+		await state["start"].call(self)
+
+func turn_end():
+	for state in _altered_states:
+		await state["end"].call(self)

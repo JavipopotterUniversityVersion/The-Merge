@@ -5,7 +5,7 @@ var _button:Button
 var _grid_master:Grid_Master
 var _combat_manager:Combat_Manager
 
-@export var _item_type:String
+#@export var _item_type:String
 
 var _can_spawn:bool = true
 const COOL_DOWN:float = 0.0
@@ -29,7 +29,7 @@ func _ready():
 			&& _combat_manager.can_act() 
 			&& _grid_master.get_free_adjacent_pos(get_parent().position) != null):
 			var item = ITEM_SCENE.instantiate()
-			item.get_node("ItemData").init(_item_type, 0)
+			item.get_node("ItemData").init(Inventory.get_random_item(), 0)
 			add_child(item)
 			_itemFall(item)
 			

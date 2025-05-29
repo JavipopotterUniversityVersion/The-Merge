@@ -33,6 +33,9 @@ func _ready():
 		_enemies_data.erase(enemy)
 
 func _round_start():
+	_playerData._reset_shield()
+	_playerData.turn_start()
+	
 	_actions_left = _max_actions
 	_actions_label.text = str(_actions_left) + "/" + str(_max_actions)
 	_actions_label.modulate = Color.WHITE
@@ -70,20 +73,23 @@ func hovering(object):
 
 
 func _end_turn():
-	
+	_playerData.turn_end()
 	_actions_label.hide()
 	
 	await get_tree().create_timer(1).timeout
 	
-	for enemy in _enemies_data: enemy._reset_shield()
+	for enemy in _enemies_data: 
+		enemy._reset_shield()
+		await enemy.turn_start()
 	
 	for enemy in _enemies_data:
 		await enemy.get_node("Entity_Brain").act()
 		await get_tree().create_timer(0.2).timeout
 		
+	for enemy in _enemies_data: 
+		await enemy.turn_end()
+		
 	await get_tree().create_timer(1).timeout
-	
-	_playerData._reset_shield()
 	
 	_actions_label.show()
 	_round_start()
