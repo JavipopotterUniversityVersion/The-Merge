@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dl7y2w34b2vs8"]
 
 [ext_resource type="Texture2D" uid="uid://d283v7vgrtwtw" path="res://Sprites/Sword_Spawn.png" id="1_g45k8"]
-[ext_resource type="Script" path="res://Scripts/Item_Spawner.gd" id="2_p6uqm"]
-[ext_resource type="Script" path="res://Scripts/Dragable_Item.gd" id="3_a6hj6"]
-[ext_resource type="Script" path="res://Scripts/Item_Data.gd" id="3_w4h16"]
+[ext_resource type="Script" path="res://Scripts/Item/Item_Spawner.gd" id="2_p6uqm"]
+[ext_resource type="Script" path="res://Scripts/Item/Dragable_Item.gd" id="3_a6hj6"]
+[ext_resource type="Script" path="res://Scripts/Item/Item_Data.gd" id="3_w4h16"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k4fct"]
 radius = 22.0907

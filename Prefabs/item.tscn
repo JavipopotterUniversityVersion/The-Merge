@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://du5tcwygsjfsj"]
 
 [ext_resource type="Texture2D" uid="uid://bf1oy6frjanru" path="res://Sprites/Sword/Sword_0.png" id="1_v3fsi"]
-[ext_resource type="Script" path="res://Scripts/Dragable_Item.gd" id="2_kbmbi"]
-[ext_resource type="Script" path="res://Scripts/Item_Data.gd" id="3_mkp2a"]
+[ext_resource type="Script" path="res://Scripts/Item/Dragable_Item.gd" id="2_ui7vd"]
+[ext_resource type="Script" path="res://Scripts/Item/Item_Data.gd" id="3_imuoy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k4fct"]
 radius = 22.0907
@@ -16,8 +16,8 @@ texture = ExtResource("1_v3fsi")
 shape = SubResource("CircleShape2D_k4fct")
 
 [node name="Dragger" type="Node2D" parent="."]
-script = ExtResource("2_kbmbi")
+script = ExtResource("2_ui7vd")
 
 [node name="ItemData" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("3_mkp2a")
+script = ExtResource("3_imuoy")
