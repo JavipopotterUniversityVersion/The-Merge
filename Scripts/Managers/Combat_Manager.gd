@@ -8,6 +8,8 @@ var _enemies_data = []
 var _actions_left:int = 3
 var _max_actions:int = 3
 
+@export var _level:int = 0
+
 func _ready():
 	TweensData.on_animation_start.connect(func(): get_node("End_Turn_Button").disabled = true)
 	TweensData.on_animation_end.connect(func(): get_node("End_Turn_Button").disabled = false)
@@ -22,7 +24,7 @@ func _ready():
 			child.on_death.connect(func():_enemies_data.erase(child))
 			child.on_death.connect(_on_enemy_death)
 	
-	Data_Base.set_enemy_parameters(_enemies_data)
+	Data_Base.set_enemy_parameters(_enemies_data, _level)
 	
 	var hidden_enemies = []
 	for enemy in _enemies_data:
@@ -49,7 +51,7 @@ func can_act(): return _actions_left > 0
 
 func is_over_entity(object):
 	if(object.get_node("ItemData").allie_is_target):
-		if(_playerData.global_position.distance_to(object.global_position) < Grid_Master.GRID_SIZE):
+		if(_playerData.global_position.y > object.global_position.y):
 			_playerData.modulate = Color(1,1,1,1)
 			return _playerData
 	else:	
@@ -61,7 +63,7 @@ func is_over_entity(object):
 
 func hovering(object):
 	if(object.get_node("ItemData").allie_is_target):
-		if(_playerData.global_position.distance_to(object.global_position) < Grid_Master.GRID_SIZE):
+		if(_playerData.global_position.y > object.global_position.y):
 			_playerData.modulate = Color(0,1,0,1)
 		else: _playerData.modulate = Color(1,1,1,1)
 			
@@ -98,3 +100,6 @@ func _on_enemy_death():
 	print("Enemies left: " +  str(_enemies_data.size()))
 	if _enemies_data.size() <= 0:
 		ScenesManager.add_scene("WinScene")
+
+func set_level(level):
+	_level = level

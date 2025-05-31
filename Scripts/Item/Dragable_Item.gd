@@ -19,8 +19,8 @@ func _ready():
 	_item_data = get_node("../ItemData")
 	_area.mouse_entered.connect(func(): _can_drag = true)
 	_area.mouse_exited.connect(func(): _can_drag = false)
-	_grid_master = get_tree().get_root().get_node("GameScene/Grid_Master")
-	_combat_manager = get_tree().get_root().get_node("GameScene/Combat_Manager")
+	_grid_master = ScenesManager.get_current_scene().get_node("Grid_Master")
+	_combat_manager =  ScenesManager.get_current_scene().get_node("Combat_Manager")
 	
 func _physics_process(delta):
 	if is_dragging == true:

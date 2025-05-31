@@ -82,7 +82,7 @@ position = Vector2(0, 0)
 data_route = "rooms"
 
 [node name="Grid_Master" type="Node2D" parent="."]
-position = Vector2(276, 204)
+position = Vector2(577, 324.5)
 script = ExtResource("5_a3ury")
 _load_saved = true
 

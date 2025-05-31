@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq1wntg3vmtsj"]
+
+[ext_resource type="Script" path="res://Scripts/FeedBack/Life_Bar.gd" id="1_pg242"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yiess"]
+bg_color = Color(0.2, 0.176471, 0.470588, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdgrc"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="LifeBar" type="ProgressBar"]
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_yiess")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gdgrc")
+value = 100.0
+show_percentage = false
+script = ExtResource("1_pg242")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "10/10"
+horizontal_alignment = 1

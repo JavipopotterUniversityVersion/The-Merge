@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://drqa73enoklk4"]
+[gd_scene load_steps=13 format=3 uid="uid://drqa73enoklk4"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/Combat_Manager.gd" id="1_6qlq2"]
 [ext_resource type="PackedScene" uid="uid://bptobpft4dw4i" path="res://Prefabs/player.tscn" id="2_anxig"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ch808tlr5docu" path="res://Prefabs/foe.tscn" id="4_s36mo"]
 [ext_resource type="PackedScene" uid="uid://dl7y2w34b2vs8" path="res://Prefabs/sword_spawn.tscn" id="4_vdn4a"]
 [ext_resource type="Script" path="res://Scripts/Managers/Grid_Master.gd" id="5_a3ury"]
+[ext_resource type="Texture2D" uid="uid://bbmq6hl083f7y" path="res://Sprites/Player.png" id="7_kxsm6"]
 
 [sub_resource type="Gradient" id="Gradient_x7pkr"]
 offsets = PackedFloat32Array(0, 0.993548)
@@ -44,7 +45,6 @@ texture = SubResource("GradientTexture2D_euk3f")
 
 [node name="Combat_Manager" type="Node" parent="."]
 script = ExtResource("1_6qlq2")
-_level = -1
 
 [node name="Entities" type="Node" parent="Combat_Manager"]
 
@@ -82,12 +82,12 @@ position = Vector2(0, 0)
 data_route = "rooms"
 
 [node name="Grid_Master" type="Node2D" parent="."]
-position = Vector2(276, 204)
+position = Vector2(577, 324.5)
 script = ExtResource("5_a3ury")
-_load_saved = true
 
 [node name="building" type="Sprite2D" parent="."]
 position = Vector2(890, 98)
+texture = ExtResource("7_kxsm6")
 
 [connection signal="button_up" from="Combat_Manager/End_Turn_Button" to="Combat_Manager" method="_end_turn" flags=18]
 

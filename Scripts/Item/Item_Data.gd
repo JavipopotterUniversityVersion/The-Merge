@@ -8,13 +8,15 @@ var allie_is_target:bool = false
 var _player:Sprite2D
 var _triggers:int = 1
 
-var free = false
+@export var saveable:bool = true
 
 func trigger(target):
+	get_parent().hide()
+	
 	for trigger in range(0, _triggers):
 		await action.call(target)
 	
-	if free: get_parent().queue_free()
+	get_parent().queue_free()
 
 func init(name, level):
 	_type = name
@@ -23,7 +25,7 @@ func init(name, level):
 	_update_parameters()
 
 func _ready():
-	_player = get_tree().get_root().get_node("GameScene/Combat_Manager/Entities/Player")
+	_player = ScenesManager.get_current_scene().get_node("Combat_Manager/Entities/Player")
 
 func _update_texture():
 	if(load("res://Sprites/" + _type + "/" + _type + "_" + str(_level) + ".png")):

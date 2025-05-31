@@ -22,10 +22,10 @@ pivot_offset = Vector2(3.9229, 3.90211)
 
 [node name="ItemData" type="Node2D" parent="."]
 script = ExtResource("3_w4h16")
+saveable = false
 
 [node name="ItemSpawner" type="Node2D" parent="."]
 script = ExtResource("2_p6uqm")
-_item_type = "Sword"
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false

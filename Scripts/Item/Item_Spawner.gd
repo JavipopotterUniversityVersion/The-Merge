@@ -6,6 +6,7 @@ var _grid_master:Grid_Master
 var _combat_manager:Combat_Manager
 
 #@export var _item_type:String
+@export var data_route = "items"
 
 var _can_spawn:bool = true
 const COOL_DOWN:float = 0.0
@@ -20,8 +21,8 @@ func _start_cool_down():
 	_can_spawn = true
 
 func _ready():
-	_grid_master = get_tree().get_root().get_node("GameScene/Grid_Master")
-	_combat_manager = get_tree().get_root().get_node("GameScene/Combat_Manager")
+	_grid_master = ScenesManager.get_current_scene().get_node("Grid_Master")
+	_combat_manager =  ScenesManager.get_current_scene().get_node("Combat_Manager")
 	_button = get_node("../Button")
 	
 	_button.button_up.connect(func(): 
@@ -29,8 +30,8 @@ func _ready():
 			&& _combat_manager.can_act() 
 			&& _grid_master.get_free_adjacent_pos(get_parent().position) != null):
 			var item = ITEM_SCENE.instantiate()
-			item.get_node("ItemData").init(Inventory.get_random_item(), 0)
 			add_child(item)
+			item.get_node("ItemData").init(Inventory.get_random_item(data_route), 0)
 			_itemFall(item)
 			
 			_combat_manager.substract_action()
@@ -41,9 +42,8 @@ func _ready():
 	_grid_master.add_object(get_parent())
 
 func _itemFall(item:Sprite2D):
-	item.position = get_parent().position
-	
-	var target_pos = _grid_master.get_free_adjacent_pos(get_parent().position)
+	var target_pos = _grid_master.get_free_adjacent_pos(get_parent().global_position)
+	item.position = position
 	_grid_master.add_object_to_pos(item, target_pos)
 	
 	item.get_node("Dragger")._on_grid = false

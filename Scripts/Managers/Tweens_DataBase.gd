@@ -11,9 +11,10 @@ var tweens = {
 	"go_to":
 		func(context):
 			var tween:Tween = context.object.create_tween()
-			await tween.tween_property(context.object, 'position', context.pos, context.duration)
-			context.call_back.call()
-			emit_signal("on_animation_end"),
+			tween.tween_property(context.object, 'global_position', context.pos, context.duration)
+			await context.object.get_tree().create_timer(context.duration).timeout
+			emit_signal("on_animation_end")
+			context.call_back.call(),
 			
 	"attack_left":
 		func(context):

@@ -8,11 +8,14 @@ static var items = [
 ]
 
 static func set_item_parameters(item:Item_Data):
+	if(match_room(item) == false):
+		match_item(item)
+
+static func match_item(item:Item_Data):
 	match item._type:
 		'Sword':
 			item.allie_is_target = false
 			item.action = func(entity):
-				item.free = true
 				var level = item._level
 				var player = item._player
 				await TweensData.get_tween("attack_right").call({
@@ -26,18 +29,49 @@ static func set_item_parameters(item:Item_Data):
 		'Shield':
 			item.allie_is_target = true
 			item.action = func(entity):
-				item.free = true
 				entity.add_shield(pow(2.25, item._level+1))
 		
 		'Poison':
 			item.allie_is_target = false
 			item.action = func(entity):
-				item.free = true
 				var level = item._level
 				entity.add_altered_state("Poison", pow(2.25, item._level))
 
-static func set_enemy_parameters(enemies_instances):
-	var set = enemies_sets[randi_range(0, enemies_sets.size()-1)]
+static func match_room(item:Item_Data):
+	item.allie_is_target = true
+	var building = ScenesManager.get_current_scene().get_node("building")
+	var path = "res://Sprites/" + item._type + "/" + str(item._type) + "_" + str(item._level) + ".png"
+	var texture = load(path)
+	
+	if(building == null): return false
+	
+	match item._type:
+		'Battle':
+			item.action = func(entity):
+				building.set_texture(texture)
+				var player = item._player
+				var pos = building.global_position
+				var level = item._level
+				
+				await TweensData.get_tween("go_to").call({
+					"object" : player, 
+					"duration" : 1.2,
+					"pos" : pos,
+					"call_back" : func(): 
+						ScenesManager.set_init_func(func(scene):
+							scene.get_node("Combat_Manager").set_level(level))
+						ScenesManager.load_scene("GameScene"),
+				})
+		'Question':
+			pass
+		'Shop': 
+			pass
+			
+	return true
+
+static func set_enemy_parameters(enemies_instances, level):
+	if(level == -1): return
+	var set = enemies_sets[level][randi_range(0, enemies_sets[level].size()-1)]
 	
 	for i in range(0, set.size()):
 		var enemy_data = enemies[set[i]]
@@ -74,6 +108,14 @@ static var abilities = {
 }
 
 static var enemies = {
+	"DebugMan": {
+		"health": 1,
+		"damage": 0,
+		"shield": 0,
+		"actions": ["attack"],
+		"sprite" : "Foe"
+	},
+	
 	"John" : {
 		"health": 20,
 		"damage": 1,
@@ -92,5 +134,17 @@ static var enemies = {
 }
 
 static var enemies_sets = [
-	["John"]
+	[["DebugMan"]],
+	[
+		["John", "John"],
+		["Mario", "John"]
+	],
+	[
+		["John", "John", "John"],
+		["John", "John", "Mario"]
+	],
+	[
+		["John", "John", "John", "John"],
+		["Mario", "Mario", "Mario"]
+	],
 ]
