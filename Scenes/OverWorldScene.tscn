@@ -76,7 +76,7 @@ text = "End Turn"
 metadata/_edit_use_anchors_ = true
 
 [node name="RoomSpawn" parent="." instance=ExtResource("4_vdn4a")]
-position = Vector2(0, 0)
+position = Vector2(572, 321)
 
 [node name="ItemSpawner" parent="RoomSpawn" index="2"]
 data_route = "rooms"

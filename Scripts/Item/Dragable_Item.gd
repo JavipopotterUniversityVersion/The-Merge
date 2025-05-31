@@ -33,9 +33,9 @@ func _input(event):
 		if event.pressed:
 			if _can_drag && _on_grid:
 				is_dragging = true
-				mouse_offset = get_global_mouse_position()-global_position
-				_grid_master._remove_from_matrix_w(get_parent().position)
-				_last_pos = get_parent().position
+				mouse_offset = get_global_mouse_position() - global_position
+				_grid_master._remove_from_matrix_w(get_parent().global_position)
+				_last_pos = get_parent().global_position
 		else:
 			if(is_dragging):
 				is_dragging = false
