@@ -10,7 +10,7 @@ static func add_item(item_name):
 	items.push_back(item_name)
 
 
-static var rooms = ["Battle"]
+static var rooms = ["Battle_0"]
 #static var rooms = ["Battle, Shop, Question"]
 
 static func add_room(room_name):
@@ -20,8 +20,24 @@ static func remove_room(room_name):
 	rooms.erase(room_name)
 
 static func get_random_item(data_route):
-	if(data_route == "items"): return items[randi_range(0, items.size()-1)]
-	else: if(data_route == "rooms"):  return rooms[randi_range(0, rooms.size()-1)]
+	var type:String
+	var level:int = 0
+	
+	var item:String
+	
+	if(data_route == "items"): item = items[randi_range(0, items.size()-1)]
+	else: if(data_route == "rooms"):  item = rooms[randi_range(0, rooms.size()-1)]
 	else: print("ERROR, INEXISTENT ROUTE FOR IVENTORY")
+	
+	var item_data = item.split("_")
+	type = item_data[0]
+	
+	if(item_data.size() > 1):
+		level = int(item_data[1])
+	
+	return {
+		"type": type,
+		"level": level
+	}
 
 static var saved_grid_data = []

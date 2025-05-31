@@ -31,7 +31,9 @@ func _ready():
 			&& _grid_master.get_free_adjacent_pos(get_parent().position) != null):
 			var item = ITEM_SCENE.instantiate()
 			add_child(item)
-			item.get_node("ItemData").init(Inventory.get_random_item(data_route), 0)
+			
+			var random_item = Inventory.get_random_item(data_route)
+			item.get_node("ItemData").init(random_item.type, random_item.level)
 			_itemFall(item)
 			
 			_combat_manager.substract_action()

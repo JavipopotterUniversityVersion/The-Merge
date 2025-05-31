@@ -127,9 +127,11 @@ func _save_grid():
 		i += 1
 
 func _load_saved_grid():
-	for item_data in Inventory.saved_grid_data:
+	var saved_grid = Inventory.saved_grid_data
+	for item_data in saved_grid:
 		var obj = ITEM_SCENE.instantiate()
 		obj.get_node("ItemData").init(item_data.type, item_data.level)
-		obj.global_position = item_data.pos
 		add_child(obj)
+		obj.global_position = item_data.pos
 		add_object(obj)
+	Inventory.saved_grid_data = []
