@@ -17,8 +17,16 @@ var _item_data:Item_Data
 func _ready():
 	_area = get_node("../Area2D")
 	_item_data = get_node("../ItemData")
-	_area.mouse_entered.connect(func(): _can_drag = true)
-	_area.mouse_exited.connect(func(): _can_drag = false)
+	_area.mouse_entered.connect(func():
+		_can_drag = true
+		if(!is_dragging): InfoTextManager.display_info(_item_data)
+		)
+		
+	_area.mouse_exited.connect(func():
+		_can_drag = false
+		InfoTextManager.hide_info()
+		)
+	
 	_grid_master = ScenesManager.get_current_scene().get_node("Grid_Master")
 	_combat_manager =  ScenesManager.get_current_scene().get_node("Combat_Manager")
 	
@@ -32,6 +40,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if _can_drag && _on_grid:
+				InfoTextManager.hide_info()
 				is_dragging = true
 				mouse_offset = get_global_mouse_position() - global_position
 				_grid_master._remove_from_matrix_w(get_parent().global_position)
@@ -39,6 +48,7 @@ func _input(event):
 		else:
 			if(is_dragging):
 				is_dragging = false
+				InfoTextManager.display_info(_item_data)
 				
 				var target = _combat_manager.is_over_entity(get_parent())
 				

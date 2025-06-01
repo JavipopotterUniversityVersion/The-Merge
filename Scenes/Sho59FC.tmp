@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3 uid="uid://lrrdcx3hcwvd"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/Combat_Manager.gd" id="1_kcex1"]
+[ext_resource type="PackedScene" uid="uid://bptobpft4dw4i" path="res://Prefabs/player.tscn" id="2_bku5g"]
+[ext_resource type="Script" path="res://Scripts/Entity/Health_Handler.gd" id="3_8mf80"]
+[ext_resource type="PackedScene" uid="uid://ch808tlr5docu" path="res://Prefabs/foe.tscn" id="4_mwkdt"]
+[ext_resource type="Script" path="res://Scripts/Managers/Shop_Action_Handler.gd" id="5_044v8"]
+[ext_resource type="PackedScene" uid="uid://dl7y2w34b2vs8" path="res://Prefabs/sword_spawn.tscn" id="5_xon1y"]
+[ext_resource type="Script" path="res://Scripts/Managers/Grid_Master.gd" id="6_jdadg"]
+
+[sub_resource type="Gradient" id="Gradient_x7pkr"]
+offsets = PackedFloat32Array(0, 0.993548)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nott1"]
+gradient = SubResource("Gradient_x7pkr")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_5ge8u"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m26pc"]
+gradient = SubResource("Gradient_5ge8u")
+
+[sub_resource type="LabelSettings" id="LabelSettings_234fm"]
+font_size = 41
+shadow_size = 9
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="ShopScene" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(577, 324.5)
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(24.1271, -15.1985)
+texture = SubResource("GradientTexture2D_nott1")
+
+[node name="GamePanel" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, 52)
+scale = Vector2(16.96, 5.16)
+texture = SubResource("GradientTexture2D_m26pc")
+
+[node name="Combat_Manager" type="Node" parent="."]
+script = ExtResource("1_kcex1")
+_set_type = "merchants"
+
+[node name="Entities" type="Node" parent="Combat_Manager"]
+
+[node name="Player" parent="Combat_Manager/Entities" instance=ExtResource("2_bku5g")]
+position = Vector2(184, 98)
+script = ExtResource("3_8mf80")
+is_allie = true
+
+[node name="Foe" parent="Combat_Manager/Entities" instance=ExtResource("4_mwkdt")]
+position = Vector2(937, 98)
+
+[node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
+offset_left = 1235.0
+offset_top = 592.0
+offset_right = 1413.0
+offset_bottom = 625.0
+text = "End Turn"
+metadata/_edit_use_anchors_ = true
+
+[node name="ActionHandler" type="Node" parent="Combat_Manager"]
+script = ExtResource("5_044v8")
+
+[node name="Actions_Label" type="Label" parent="Combat_Manager/ActionHandler"]
+offset_left = 32.0
+offset_top = 501.0
+offset_right = 321.0
+offset_bottom = 597.0
+text = "3/3"
+label_settings = SubResource("LabelSettings_234fm")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RoomSpawn" parent="." instance=ExtResource("5_xon1y")]
+position = Vector2(572, 321)
+
+[node name="ItemSpawner" parent="RoomSpawn" index="2"]
+_shop_spawner = true
+data_route = "shop"
+
+[node name="Grid_Master" type="Node2D" parent="."]
+position = Vector2(276, 204)
+script = ExtResource("6_jdadg")
+_load_saved = true
+
+[node name="building" type="Sprite2D" parent="."]
+position = Vector2(890, 98)
+
+[connection signal="button_up" from="Combat_Manager/End_Turn_Button" to="Combat_Manager" method="_end_turn" flags=18]
+
+[editable path="Combat_Manager/Entities/Player"]
+[editable path="Combat_Manager/Entities/Foe"]
+[editable path="RoomSpawn"]

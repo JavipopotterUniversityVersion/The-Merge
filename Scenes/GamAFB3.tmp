@@ -53,28 +53,19 @@ script = ExtResource("2_8miil")
 [node name="Player" parent="Combat_Manager/Entities" instance=ExtResource("3_wdfnm")]
 position = Vector2(200, 98)
 script = ExtResource("4_bnap6")
-_max_health = null
 is_allie = true
 
 [node name="Foe" parent="Combat_Manager/Entities" instance=ExtResource("5_x0mlw")]
 position = Vector2(744, 99.5)
-_max_health = null
-is_allie = null
 
 [node name="Foe2" parent="Combat_Manager/Entities" instance=ExtResource("5_x0mlw")]
 position = Vector2(816.915, 99.5)
-_max_health = null
-is_allie = null
 
 [node name="Foe4" parent="Combat_Manager/Entities" instance=ExtResource("5_x0mlw")]
 position = Vector2(892, 99.5)
-_max_health = null
-is_allie = null
 
 [node name="Foe3" parent="Combat_Manager/Entities" instance=ExtResource("5_x0mlw")]
 position = Vector2(962, 99.5)
-_max_health = null
-is_allie = null
 
 [node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
 offset_left = 915.0

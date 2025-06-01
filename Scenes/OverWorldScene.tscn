@@ -1,25 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://drqa73enoklk4"]
+[gd_scene load_steps=13 format=3 uid="uid://drqa73enoklk4"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/Combat_Manager.gd" id="1_6qlq2"]
 [ext_resource type="PackedScene" uid="uid://bptobpft4dw4i" path="res://Prefabs/player.tscn" id="2_anxig"]
 [ext_resource type="Script" path="res://Scripts/Entity/Health_Handler.gd" id="3_2oer1"]
 [ext_resource type="PackedScene" uid="uid://ch808tlr5docu" path="res://Prefabs/foe.tscn" id="4_s36mo"]
 [ext_resource type="PackedScene" uid="uid://dl7y2w34b2vs8" path="res://Prefabs/sword_spawn.tscn" id="4_vdn4a"]
+[ext_resource type="Script" path="res://Scripts/Managers/Combat_Action_Handler.gd" id="5_13jhm"]
 [ext_resource type="Script" path="res://Scripts/Managers/Grid_Master.gd" id="5_a3ury"]
 
-[sub_resource type="Gradient" id="Gradient_x7pkr"]
+[sub_resource type="Gradient" id="Gradient_wi4o3"]
 offsets = PackedFloat32Array(0, 0.993548)
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nljtu"]
-gradient = SubResource("Gradient_x7pkr")
+gradient = SubResource("Gradient_wi4o3")
 fill_to = Vector2(1, 1)
 
-[sub_resource type="Gradient" id="Gradient_5ge8u"]
+[sub_resource type="Gradient" id="Gradient_ij7my"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_euk3f"]
-gradient = SubResource("Gradient_5ge8u")
+gradient = SubResource("Gradient_ij7my")
 
 [sub_resource type="LabelSettings" id="LabelSettings_e4au2"]
 font_size = 41
@@ -27,6 +28,7 @@ shadow_size = 9
 shadow_color = Color(0, 0, 0, 1)
 
 [node name="OverWorldScene" type="Node"]
+metadata/level = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(577, 324.5)
@@ -51,12 +53,26 @@ _level = -1
 [node name="Player" parent="Combat_Manager/Entities" instance=ExtResource("2_anxig")]
 position = Vector2(184, 98)
 script = ExtResource("3_2oer1")
+_max_health = null
 is_allie = true
 
 [node name="Foe" parent="Combat_Manager/Entities" instance=ExtResource("4_s36mo")]
 position = Vector2(1379, 80)
+_max_health = null
+is_allie = null
 
-[node name="Actions_Label" type="Label" parent="Combat_Manager"]
+[node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
+offset_left = 1235.0
+offset_top = 592.0
+offset_right = 1413.0
+offset_bottom = 625.0
+text = "End Turn"
+metadata/_edit_use_anchors_ = true
+
+[node name="ActionHandler" type="Node" parent="Combat_Manager"]
+script = ExtResource("5_13jhm")
+
+[node name="Actions_Label" type="Label" parent="Combat_Manager/ActionHandler"]
 offset_left = 863.0
 offset_top = 552.0
 offset_right = 1152.0
@@ -67,19 +83,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
-offset_left = 1235.0
-offset_top = 592.0
-offset_right = 1413.0
-offset_bottom = 625.0
-text = "End Turn"
-metadata/_edit_use_anchors_ = true
-
 [node name="RoomSpawn" parent="." instance=ExtResource("4_vdn4a")]
 position = Vector2(572, 321)
 
 [node name="ItemSpawner" parent="RoomSpawn" index="2"]
-data_route = "rooms"
+data_route = "room"
 
 [node name="Grid_Master" type="Node2D" parent="."]
 position = Vector2(276, 204)

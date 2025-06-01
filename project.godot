@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 ScenesManager="*res://Scripts/Managers/Scenes_Manager.gd"
 TweensData="*res://Scripts/Managers/Tweens_DataBase.gd"
+InfoTextManager="*res://Scripts/FeedBack/Info_Text_Manager.gd"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [input]
 

@@ -16,6 +16,26 @@ var tweens = {
 			emit_signal("on_animation_end")
 			context.call_back.call(),
 			
+	"arc_go_to":
+		func(context):
+			var object = context.object
+			var start_pos: Vector2 = object.global_position
+			var end_pos: Vector2 = context.pos
+			var height_offset: float = 90.0  # altura del arco (ajústalo a gusto)
+			var duration: float = context.duration
+
+			var tween: Tween = object.create_tween()
+
+			tween.tween_method(func(t):
+				var curved_pos = start_pos.lerp(end_pos, t)
+				curved_pos.y += height_offset * sin(PI * t)
+				object.global_position = curved_pos
+			, 0.0, 1.0, duration)
+
+			await object.get_tree().create_timer(duration).timeout
+			emit_signal("on_animation_end")
+			context.call_back.call(),
+			
 	"attack_left":
 		func(context):
 			var tween:Tween = context.object.create_tween()

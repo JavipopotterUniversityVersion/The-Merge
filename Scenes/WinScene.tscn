@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://chpi7xeh8i83j"]
+[gd_scene load_steps=6 format=3 uid="uid://chpi7xeh8i83j"]
 
 [ext_resource type="Script" path="res://Scripts/Load_Scene_Button.gd" id="1_uu177"]
 [ext_resource type="Script" path="res://Scripts/Item_Reward_Button.gd" id="2_d45wh"]
 [ext_resource type="Texture2D" uid="uid://bulss842b4k8a" path="res://Sprites/Poison/Poison_0.png" id="2_lalxd"]
+[ext_resource type="Script" path="res://Scripts/Money_Reward_Button.gd" id="4_udvae"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7nkc1"]
 font_size = 46
@@ -80,3 +81,18 @@ text = "fdgdf"
 icon = ExtResource("2_lalxd")
 icon_alignment = 2
 script = ExtResource("2_d45wh")
+
+[node name="Button2" type="Button" parent="Panel/Rewards"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_right = 1.005
+anchor_bottom = 0.139
+offset_left = -8.376
+offset_top = 71.0
+offset_right = -0.219971
+offset_bottom = 71.068
+grow_horizontal = 2
+text = "Dinero"
+icon_alignment = 2
+script = ExtResource("4_udvae")

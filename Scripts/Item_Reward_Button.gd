@@ -3,11 +3,12 @@ var item:String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var index = randi_range(0, Data_Base.items.size()-1)
-	var item = Data_Base.items[index]
+	var level =  ScenesManager.get_current_scene().get_meta("level")
+	var item = Shop_Manager.get_random_item("weapon", level * 2)
+	item.shop = false
 	
-	text = item
-	icon = load("res://Sprites/" + item + "/" + item + "_0.png")
+	text = item.type
+	icon = load("res://Sprites/" + item.type + "/" + item.type + "_" + str(item.level) + ".png")
 	
 	button_up.connect(func():
 		Inventory.add_item(item)

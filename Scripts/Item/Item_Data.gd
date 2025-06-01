@@ -7,6 +7,7 @@ var action:Callable
 var allie_is_target:bool = false
 var _player:Sprite2D
 var _triggers:int = 1
+var _shop:bool = false
 
 @export var saveable:bool = true
 
@@ -18,9 +19,10 @@ func trigger(target):
 	
 	get_parent().queue_free()
 
-func init(name, level):
+func init(name, level, shop = false):
 	_type = name
 	_level = level
+	_shop = shop
 	_update_texture()
 	_update_parameters()
 

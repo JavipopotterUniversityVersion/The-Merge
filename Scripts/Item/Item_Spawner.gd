@@ -5,8 +5,8 @@ var _button:Button
 var _grid_master:Grid_Master
 var _combat_manager:Combat_Manager
 
-#@export var _item_type:String
-@export var data_route = "items"
+@export var _shop_spawner:bool = false
+@export var data_route:String = "weapon"
 
 var _can_spawn:bool = true
 const COOL_DOWN:float = 0.0
@@ -14,6 +14,7 @@ const COOL_DOWN:float = 0.0
 const BOX_SIDE:int = 60
 
 const ITEM_SCENE = preload("res://Prefabs/item.tscn")
+var _level
 
 func _start_cool_down():
 	_can_spawn = false
@@ -21,6 +22,7 @@ func _start_cool_down():
 	_can_spawn = true
 
 func _ready():
+	_level = ScenesManager.get_current_scene().get_meta("level")
 	_grid_master = ScenesManager.get_current_scene().get_node("Grid_Master")
 	_combat_manager =  ScenesManager.get_current_scene().get_node("Combat_Manager")
 	_button = get_node("../Button")
@@ -32,11 +34,15 @@ func _ready():
 			var item = ITEM_SCENE.instantiate()
 			add_child(item)
 			
-			var random_item = Inventory.get_random_item(data_route)
-			item.get_node("ItemData").init(random_item.type, random_item.level)
+			var random_item
+			
+			if(_shop_spawner): random_item = Shop_Manager.get_random_item(data_route, _level)
+			else: random_item = Inventory.get_random_item(data_route)
+			
+			item.get_node("ItemData").init(random_item.type, random_item.level, random_item.shop)
 			_itemFall(item)
 			
-			_combat_manager.substract_action()
+			_combat_manager.handler_act()
 			
 			_start_cool_down()
 		)

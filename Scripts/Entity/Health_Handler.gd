@@ -62,8 +62,7 @@ func die():
 	TweensData.get_tween("die").call(self)
 	await get_tree().create_timer(2).timeout
 	if is_allie: ScenesManager.load_scene("MainMenu")
-	emit_signal("on_death")
-	queue_free()
+	emit_signal("on_death", self)
 
 func _process_shield(dmg:int):
 	_shield -= dmg

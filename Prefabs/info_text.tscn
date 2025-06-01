@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://bol0jrfi6kvmt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bi82y"]
+bg_color = Color(0, 0, 0, 0.941176)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r0a7h"]
+font_size = 8
+
+[node name="info_text" type="Control"]
+z_index = 1
+layout_mode = 3
+anchor_right = 0.099
+anchor_bottom = 0.094
+offset_right = -0.0480042
+offset_bottom = 0.0879974
+pivot_offset = Vector2(59, 61)
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.991
+anchor_bottom = 0.984
+offset_left = -56.0
+offset_top = -61.0
+offset_right = -55.974
+offset_bottom = -61.024
+theme_override_styles/panel = SubResource("StyleBoxFlat_bi82y")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.426
+offset_left = -56.0
+offset_top = -61.0
+offset_right = -57.0
+offset_bottom = -60.986
+text = "Skibidi"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.402
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -60.522
+offset_right = -56.0
+offset_bottom = -61.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Lorem Ipsum sim dolor skibidi toilet"
+label_settings = SubResource("LabelSettings_r0a7h")
+autowrap_mode = 3

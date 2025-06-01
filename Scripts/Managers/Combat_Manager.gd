@@ -1,30 +1,32 @@
 class_name Combat_Manager
 extends Node
 
-var _actions_label:Label
 var _playerData:Health_Handler
 var _enemies_data = []
 
-var _actions_left:int = 3
-var _max_actions:int = 3
+var _action_handler
+var defeated_enemies = []
 
 @export var _level:int = 0
+@export var _set_type:String = "enemies"
 
 func _ready():
+	_level = ScenesManager.get_current_scene().get_meta("level")
+	
+	_action_handler = get_node("ActionHandler")
 	TweensData.on_animation_start.connect(func(): get_node("End_Turn_Button").disabled = true)
 	TweensData.on_animation_end.connect(func(): get_node("End_Turn_Button").disabled = false)
+	_action_handler.round_start()
 	
 	_playerData = get_node("Entities/Player")
-	_actions_label = get_node("Actions_Label")
 	
 	for child in get_node("Entities").get_children():
 		if(child.is_allie == false): 
 			_enemies_data.push_back(child)
 			child.hide();
-			child.on_death.connect(func():_enemies_data.erase(child))
 			child.on_death.connect(_on_enemy_death)
 	
-	Data_Base.set_enemy_parameters(_enemies_data, _level)
+	Data_Base.set_enemy_parameters(_enemies_data, _set_type, _level)
 	
 	var hidden_enemies = []
 	for enemy in _enemies_data:
@@ -37,17 +39,12 @@ func _ready():
 func _round_start():
 	_playerData._reset_shield()
 	_playerData.turn_start()
-	
-	_actions_left = _max_actions
-	_actions_label.text = str(_actions_left) + "/" + str(_max_actions)
-	_actions_label.modulate = Color.WHITE
+	_action_handler.round_start()
 
-func substract_action():
-	_actions_left -= 1
-	_actions_label.text = str(_actions_left) + "/" + str(_max_actions)
-	if(_actions_left == 0): _actions_label.modulate = Color.GRAY
+func can_act(): return _action_handler.can_act()
 
-func can_act(): return _actions_left > 0
+func handler_act():
+	_action_handler.act()
 
 func is_over_entity(object):
 	if(object.get_node("ItemData").allie_is_target):
@@ -76,7 +73,7 @@ func hovering(object):
 
 func _end_turn():
 	_playerData.turn_end()
-	_actions_label.hide()
+	_action_handler._actions_label.hide()
 	
 	await get_tree().create_timer(1).timeout
 	
@@ -93,13 +90,18 @@ func _end_turn():
 		
 	await get_tree().create_timer(1).timeout
 	
-	_actions_label.show()
+	_action_handler._actions_label.show()
 	_round_start()
 
-func _on_enemy_death():
+func _on_enemy_death(enemy_data:Health_Handler):
+	defeated_enemies.push_back({"max_health": enemy_data._max_health})
+	_enemies_data.erase(enemy_data)
 	print("Enemies left: " +  str(_enemies_data.size()))
 	if _enemies_data.size() <= 0:
 		ScenesManager.add_scene("WinScene")
 
 func set_level(level):
 	_level = level
+
+func set_set_type(type):
+	_set_type = type
