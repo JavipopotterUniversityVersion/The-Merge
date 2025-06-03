@@ -19,25 +19,34 @@ static func match_item(item:Item_Data):
 	match item._type:
 		'Sword':
 			item.allie_is_target = false
+			var damage = round(pow(2.5, item._level+1))
+			item.p.damage = damage
+			
 			item.action = func(entity):
-				var level = item._level
 				var player = item._player
+				
 				await TweensData.get_tween("attack_right").call({
 					"object" : player, 
 					"duration" : 0.2,
 					"call_back" : func(): 
-						entity.get_damage(pow(2.5, level+1))
+						entity.get_damage(item.p.damage)
 						player.emit_signal("on_attack"),
 				})
 		'Shield':
 			item.allie_is_target = true
+			var shield = round(pow(2.25, item._level+1))
+			item.p.shield = shield
+			
 			item.action = func(entity):
-				entity.add_shield(pow(2.25, item._level+1))
+				entity.add_shield(item.p.shield)
 		'Poison':
 			item.allie_is_target = false
+			var poison = round(pow(2.25, item._level))
+			item.p.poison = poison
+			
 			item.action = func(entity):
-				var level = item._level
-				entity.add_altered_state("Poison", pow(2.25, item._level))
+				entity.add_altered_state("Poison", item.p.poison)
+		
 
 static func match_shop(item:Item_Data):
 	if(item._shop == false): return false
@@ -96,7 +105,7 @@ static func set_enemy_parameters(enemies_instances, type, level):
 	if(level == -1): return
 	var set = sets[type][level][randi_range(0, sets[type][level].size()-1)]
 	
-	for i in range(0, set.size()):
+	for i in range(0, set.size()-1):
 		var enemy_data = enemies[set[i]]
 		var enemy_instance:Health_Handler = enemies_instances[i]
 		var brain:Entity_Brain = enemy_instance.get_node("Entity_Brain");
@@ -166,7 +175,7 @@ static var enemies = {
 
 static var sets = {
 	"enemies" : [
-		[["DebugMan"]],
+#		[["DebugMan"]],
 		[
 			["John", "John"],
 			["Mario", "John"]
