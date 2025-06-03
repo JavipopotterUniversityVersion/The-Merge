@@ -65,9 +65,9 @@ func die():
 	emit_signal("on_death", self)
 
 func _process_shield(dmg:int):
-	_shield -= dmg
 	
 	if(_shield > 0):
+		_shield -= dmg
 		_shield -= dmg
 		if(_shield < 0): _shield = 0
 		

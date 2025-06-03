@@ -9,6 +9,8 @@ var _player:Sprite2D
 var _triggers:int = 1
 var _shop:bool = false
 
+var p = {}
+
 @export var saveable:bool = true
 
 func trigger(target):

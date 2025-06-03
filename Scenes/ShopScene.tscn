@@ -54,13 +54,10 @@ _set_type = "merchants"
 [node name="Player" parent="Combat_Manager/Entities" instance=ExtResource("2_bku5g")]
 position = Vector2(184, 98)
 script = ExtResource("3_8mf80")
-_max_health = null
 is_allie = true
 
 [node name="Foe" parent="Combat_Manager/Entities" instance=ExtResource("4_mwkdt")]
 position = Vector2(937, 98)
-_max_health = null
-is_allie = null
 
 [node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
 offset_left = 1235.0

@@ -17,35 +17,9 @@ static func set_item_parameters(item:Item_Data):
 
 static func match_item(item:Item_Data):
 	match item._type:
-		'Sword':
-			item.allie_is_target = false
-			var damage = round(pow(2.5, item._level+1))
-			item.p.damage = damage
-			
-			item.action = func(entity):
-				var player = item._player
-				
-				await TweensData.get_tween("attack_right").call({
-					"object" : player, 
-					"duration" : 0.2,
-					"call_back" : func(): 
-						entity.get_damage(item.p.damage)
-						player.emit_signal("on_attack"),
-				})
-		'Shield':
-			item.allie_is_target = true
-			var shield = round(pow(2.25, item._level+1))
-			item.p.shield = shield
-			
-			item.action = func(entity):
-				entity.add_shield(item.p.shield)
-		'Poison':
-			item.allie_is_target = false
-			var poison = round(pow(2.25, item._level))
-			item.p.poison = poison
-			
-			item.action = func(entity):
-				entity.add_altered_state("Poison", item.p.poison)
+		'Sword': Sword.create(item)
+		'Shield': Shield.create(item)
+		'Poison': Poison.create(item)
 		
 
 static func match_shop(item:Item_Data):

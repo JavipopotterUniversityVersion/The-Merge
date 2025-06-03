@@ -53,13 +53,10 @@ _level = -1
 [node name="Player" parent="Combat_Manager/Entities" instance=ExtResource("2_anxig")]
 position = Vector2(184, 98)
 script = ExtResource("3_2oer1")
-_max_health = null
 is_allie = true
 
 [node name="Foe" parent="Combat_Manager/Entities" instance=ExtResource("4_s36mo")]
 position = Vector2(1379, 80)
-_max_health = null
-is_allie = null
 
 [node name="End_Turn_Button" type="Button" parent="Combat_Manager"]
 offset_left = 1235.0

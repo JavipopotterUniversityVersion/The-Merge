@@ -16,13 +16,13 @@ static func get_info_text(item:Item_Data):
 	match item._type:
 		'Sword':
 			info_name = "Sword"
-			info_description = "Deal " + item.p["damage"] + " damage"
+			info_description = "Deal " + str(item.p.damage) + " damage"
 		'Shield':
 			info_name = "Shield"
-			info_description = "Apply " + item.p["shield"] + " shield"
+			info_description = "Apply " + str(item.p.shield) + " shield"
 		'Poison':
 			info_name = "Poison"
-			info_description = "Apply " + item.p["poison"] + " poison"
+			info_description = "Apply " + str(item.p.poison) + " poison"
 		'Battle':
 			info_name = "Battle"
 			info_description = "Enter a battle with enemies"
